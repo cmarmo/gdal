@@ -26,6 +26,9 @@ __pycache__/
 .env*/
 .venv*/
 
+# autotools
+gdal/configure
+
 # CMake
 CMakeLists.txt
 *.cmake
