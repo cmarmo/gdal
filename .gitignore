@@ -28,6 +28,7 @@ __pycache__/
 
 # autotools
 gdal/configure
+gdal/aclocal.m4
 
 # CMake
 CMakeLists.txt
