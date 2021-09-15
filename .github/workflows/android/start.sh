@@ -11,7 +11,7 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     wget unzip ccache curl ca-certificates \
     python \
     pkg-config sqlite3 \
-    automake \
+    automake gettext \
     libncurses5
 
 cd "$WORK_DIR"
