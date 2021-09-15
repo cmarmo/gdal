@@ -3,7 +3,7 @@
 set -e
 
 dnf install -y --setopt=install_weak_deps=False proj-devel
-dnf install -y clang automake make gettext-devel diffutils ccache \
+dnf install -y clang automake make diffutils ccache \
               libxml2-devel libxslt-devel expat-devel xerces-c-devel \
               zlib-devel xz-devel libzstd-devel blosc-devel \
               giflib-devel libjpeg-devel libpng-devel \
