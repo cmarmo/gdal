@@ -64,7 +64,7 @@ jobs:
       with:
         name: HTML
     - name: Deploy
-      with:
+      env:
         user: __token__
         password: ${{ secrets.SECRET_TEST }}
       shell: bash -l {0}
@@ -74,7 +74,7 @@ jobs:
         git config user.email "marmochiaskl@gmail.com"
         git config user.name "cmarmo"
         git remote add origin https://github.com/cmarmo/docs-test.git
-        echo "gdal.org" > CNAME
+        #echo "gdal.org" > CNAME
         touch .nojekyll
         git add -A
         git commit -m "Update with commit $GITHUB_SHA"
