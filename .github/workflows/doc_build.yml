@@ -63,3 +63,17 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: HTML
+    - name: Deploy
+      shell: bash -l {0}
+      run: |
+        cd /__w/gdal/gdal
+        git init
+        #git config user.email "proj4bot@proj4.bot"
+        #git config user.name "GDAL Bot"
+        git remote add origin git@github.com:cmarmo/docs-test.git
+        #echo "gdal.org" > CNAME
+        #touch .nojekyll
+        git add -A
+        git commit -m "Update with..."
+        #git push -f origin master
+
