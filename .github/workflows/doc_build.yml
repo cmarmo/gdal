@@ -72,11 +72,10 @@ jobs:
         git init
         git config user.email "marmochiaskl@gmail.com"
         git config user.name "cmarmo"
-        git config push.default matching
         git remote add origin git@github.com:cmarmo/docs-test.git
         #echo "gdal.org" > CNAME
         touch .nojekyll
         git add -A
         git commit -m "Update with commit $GITHUB_SHA"
-        git push -f
+        git push -f origin main
 
