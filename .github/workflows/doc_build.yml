@@ -72,7 +72,7 @@ jobs:
         wc ~/.ssh/id_rsa
         chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-        cat ~/.ssh/known_hosts
+        ssh -vvv -T git@github.com
     - name: Deploy to gdal.org
       if: ${{ github.ref_name == 'deploy-doc-test' }}
       shell: bash -l {0}
