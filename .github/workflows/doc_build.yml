@@ -75,8 +75,6 @@ jobs:
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
         eval `ssh-agent -s`
         ssh-add ~/.ssh/id_rsa
-        ssh-add -l
-        ssh -vvv -T git@github.com
     - name: Deploy to gdal.org
       if: ${{ github.ref_name == 'deploy-doc-test' }}
       shell: bash -l {0}
@@ -87,6 +85,7 @@ jobs:
         git init
         git config user.email "marmochiaskl@gmail.com"
         git config user.name "cmarmo"
+        ssh -vvv -T git@github.com
         git remote add origin git@github.com:cmarmo/docs-test.git
         git remote -v
         #echo "gdal.org" > CNAME
