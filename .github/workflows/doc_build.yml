@@ -66,12 +66,17 @@ jobs:
     - name: Deploy ssh key
       shell: bash -l {0}
       run: |
+        set -x
+        set -e
         mkdir ~/.ssh && echo $SSH_KEY_DOCS > ~/.ssh/id_rsa
+        wc ~/.ssh/id_rsa
         chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts  
     - name: Deploy to gdal.org
       shell: bash -l {0}
       run: |
+        set -x
+        set -e
         cd /__w/gdal/gdal
         git init
         git config user.email "marmochiaskl@gmail.com"
