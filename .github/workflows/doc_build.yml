@@ -65,14 +65,14 @@ jobs:
         name: HTML
     - name: Deploy
       env:
-        github_token: ${{ secrets.SECRET_TEST }}
+        github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       shell: bash -l {0}
       run: |
         cd /__w/gdal/gdal
         git init
         git config user.email "marmochiaskl@gmail.com"
         git config user.name "cmarmo"
-        git remote add origin git@github.com:cmarmo/docs-test.git
+        git remote add origin https://github.com/cmarmo/docs-test.git
         #echo "gdal.org" > CNAME
         touch .nojekyll
         git add -A
