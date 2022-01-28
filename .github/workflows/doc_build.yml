@@ -68,10 +68,10 @@ jobs:
       if: ${{ github.ref_name == 'deploy-doc-test' }}
       shell: bash -l {0}
       run: |
-        NL=$'\n'
-        mkdir ~/.ssh && echo "${{ secrets.SSH_KEY_DOCS }}$NL" > ~/.ssh/id_rsa
+        mkdir ~/.ssh && echo "${{ secrets.SSH_KEY_DOCS }}" > ~/.ssh/id_rsa
         wc ~/.ssh/id_rsa
         chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
+        echo "PubkeyAcceptedKeyTypes +ssh-rsa" > ~/.ssh/config
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
         eval `ssh-agent -s`
         ssh-add ~/.ssh/id_rsa
