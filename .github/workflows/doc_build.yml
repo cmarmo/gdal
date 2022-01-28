@@ -64,7 +64,7 @@ jobs:
       with:
         name: HTML
     - name: Deploy ssh key
-      if: ${{ github.ref_name=="deploy-doc-test" }}
+      if: ${{ github.ref_name == 'deploy-doc-test' }}
       shell: bash -l {0}
       run: |
         whoami
@@ -73,7 +73,7 @@ jobs:
         chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts  
     - name: Deploy to gdal.org
-      if: ${{ github.ref_name=="deploy-doc-test" }}
+      if: ${{ github.ref_name == 'deploy-doc-test' }}
       shell: bash -l {0}
       run: |
         set -x
