@@ -12,32 +12,32 @@ jobs:
     container: osgeo/proj-docs
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Print versions
-      shell: bash -l {0}
-      run: |
-          python3 --version
-          sphinx-build --version
-          python3 -m pip list --not-required --format=columns
-    - name: Lint .rst files
-      shell: bash -l {0}
-      run: |
-        if find . -name '*.rst' | xargs grep -P '\t'; then echo 'Tabs are bad, please use four spaces in .rst files.'; false; fi
-        if find . -name '*.rst' | xargs grep "\.\.versionadded"; then echo 'Wrong annotation. Should be .. versionadded'; false; fi
-        if find . -name '*.rst' | xargs grep "\.\.note"; then echo 'Wrong annotation. Should be .. note'; false; fi
-        if find . -name '*.rst' | xargs grep "\.\.warning"; then echo 'Wrong annotation. Should be .. warning'; false; fi
-        if find . -name '*.rst' | xargs grep "\.\.codeblock"; then echo 'Wrong annotation. Should be .. codeblock'; false; fi
-      working-directory: ./doc
-    - name: Doxygen
-      shell: bash -l {0}
-      run: |
-        mkdir -p doc/build
-        doxygen Doxyfile
-    - name: HTML
-      shell: bash -l {0}
-      run: |
-        make html
-      working-directory: ./doc
+    #- uses: actions/checkout@v2
+    #- name: Print versions
+    #  shell: bash -l {0}
+    #  run: |
+    #      python3 --version
+    #      sphinx-build --version
+    #      python3 -m pip list --not-required --format=columns
+    #- name: Lint .rst files
+    #  shell: bash -l {0}
+    #  run: |
+    #    if find . -name '*.rst' | xargs grep -P '\t'; then echo 'Tabs are bad, please use four spaces in .rst files.'; false; fi
+    #    if find . -name '*.rst' | xargs grep "\.\.versionadded"; then echo 'Wrong annotation. Should be .. versionadded'; false; fi
+    #    if find . -name '*.rst' | xargs grep "\.\.note"; then echo 'Wrong annotation. Should be .. note'; false; fi
+    #    if find . -name '*.rst' | xargs grep "\.\.warning"; then echo 'Wrong annotation. Should be .. warning'; false; fi
+    #    if find . -name '*.rst' | xargs grep "\.\.codeblock"; then echo 'Wrong annotation. Should be .. codeblock'; false; fi
+    #  working-directory: ./doc
+    #- name: Doxygen
+    #  shell: bash -l {0}
+    #  run: |
+    #    mkdir -p doc/build
+    #    doxygen Doxyfile
+    #- name: HTML
+    #  shell: bash -l {0}
+    #  run: |
+    #    make html
+    #  working-directory: ./doc
     #- name: PDF
     #  shell: bash -l {0}
     #  run: |
@@ -64,29 +64,26 @@ jobs:
     #  if: ${{ github.ref_name == 'deploy-doc-test' }}
     #  with:
     #    name: HTML
-    - name: Deploy to Github Pages if on Master
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/deploy-doc-test' }}
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        deploy_key: ${{ secrets.SSH_KEY_DOCS }}
-        external_repository: cmarmo/docs-test
-        destination_dir: master
-        publish_branch: master
-        publish_dir: ./docs/build/html
-        #cname: braindecode.org
-    #- name: Deploy ssh key
-    #  if: ${{ github.ref_name == 'deploy-doc-test' }}
-    #  shell: bash -l {0}
-    #  run: |
-    #    mkdir ~/.ssh && echo "${{ secrets.SSH_KEY_DOCS }}" > ~/.ssh/id_rsa
-    #    wc ~/.ssh/id_rsa
-    #    chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
-    #    echo "PubkeyAcceptedKeyTypes +ssh-rsa" >> /etc/ssh/ssh_config
-    #    ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-    #    eval `ssh-agent -s`
-    #    ssh-add ~/.ssh/id_rsa
-    #    set SSH_AUTH_SOCK=0
-    #    ssh -i ~/.ssh/id_rsa -vvv -T git@github.com
+    #- name: Deploy to Github Pages if on Master
+    #  if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/deploy-doc-test' }}
+    #  uses: peaceiris/actions-gh-pages@v3
+    #  with:
+    #    deploy_key: ${{ secrets.SSH_KEY_DOCS }}
+    #    external_repository: cmarmo/docs-test
+    #    destination_dir: master
+    #    publish_branch: master
+    #    publish_dir: ./docs/build/html
+    - name: Deploy ssh key
+      if: ${{ github.ref_name == 'deploy-doc-test' }}
+      shell: bash -l {0}
+      run: |
+        mkdir /root/.ssh && echo "${{ secrets.SSH_KEY_DOCS }}" > /root/.ssh/id_rsa
+        wc /root/.ssh/id_rsa
+        chmod 700 /root/.ssh && chmod 600 /root/.ssh/id_rsa
+        ssh-keyscan -t rsa github.com >> /root/.ssh/known_hosts
+        eval `ssh-agent -s`
+        ssh-add /root/.ssh/id_rsa
+        ssh -vvv -T git@github.com
     #- name: Deploy to gdal.org
     #  if: ${{ github.ref_name == 'deploy-doc-test' }}
     #  shell: bash -l {0}
