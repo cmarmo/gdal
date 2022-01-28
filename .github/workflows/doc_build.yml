@@ -68,7 +68,7 @@ jobs:
       if: ${{ github.ref_name == 'deploy-doc-test' }}
       shell: bash -l {0}
       run: |
-        mkdir ~/.ssh && echo "${{ secrets.SSH_KEY_DOCS }}" > ~/.ssh/id_rsa
+        mkdir ~/.ssh && echo "${{ secrets.SSH_KEY_DOCS }}" >> /etc/ssh/ssh_config
         wc ~/.ssh/id_rsa
         chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
         echo "PubkeyAcceptedKeyTypes +ssh-rsa" > ~/.ssh/config
