@@ -85,7 +85,7 @@ jobs:
         git init
         git config user.email "marmochiaskl@gmail.com"
         git config user.name "cmarmo"
-        ssh -vvv -T git@github.com
+        ssh -i ~/.ssh/id_rsa -vvv -T git@github.com
         git remote add origin git@github.com:cmarmo/docs-test.git
         git remote -v
         #echo "gdal.org" > CNAME
