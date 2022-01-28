@@ -61,19 +61,19 @@ jobs:
     #    name: Misspelled
     #    path: doc/build/spelling/output.txt
     - uses: actions/download-artifact@v2
+      if: ${{ github.ref_name == 'deploy-doc-test' }}
       with:
         name: HTML
     - name: Deploy ssh key
-      if: ${{ github.ref_name == 'master' }}
+      if: ${{ github.ref_name == 'deploy-doc-test' }}
       shell: bash -l {0}
       run: |
-        whoami
         mkdir ~/.ssh && echo "${{ secrets.SSH_KEY_DOCS }}" > ~/.ssh/id_rsa
         wc ~/.ssh/id_rsa
         chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts  
     - name: Deploy to gdal.org
-      if: ${{ github.ref_name == 'master' }}
+      if: ${{ github.ref_name == 'deploy-doc-test' }}
       shell: bash -l {0}
       run: |
         set -x
