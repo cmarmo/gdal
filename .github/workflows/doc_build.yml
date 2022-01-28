@@ -64,13 +64,11 @@ jobs:
       with:
         name: HTML
     - name: Deploy ssh key
-      env:
-        keydoc: ${{ secrets.$SSH_KEY_DOCS }}
       shell: bash -l {0}
       run: |
         set -x
         set -e
-        mkdir ~/.ssh && echo $keydoc > ~/.ssh/id_rsa
+        mkdir ~/.ssh && echo ${{ secrets.SSH_KEY_DOCS }} > ~/.ssh/id_rsa
         wc ~/.ssh/id_rsa
         chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts  
