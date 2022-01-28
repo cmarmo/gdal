@@ -38,20 +38,20 @@ jobs:
       run: |
         make html
       working-directory: ./doc
-    - name: PDF
-      shell: bash -l {0}
-      run: |
-        make latexpdf
-      working-directory: ./doc
+    #- name: PDF
+    #  shell: bash -l {0}
+    #  run: |
+    #    make latexpdf
+    #  working-directory: ./doc
     #- name: Spelling
     #  shell: bash -l {0}
     #  run: |
     #    make spelling
     #  working-directory: ./doc
-    - uses: actions/upload-artifact@v2
-      with:
-        name: PDF
-        path: doc/build/latex/gdal.pdf
+    #- uses: actions/upload-artifact@v2
+    #  with:
+    #    name: PDF
+    #    path: doc/build/latex/gdal.pdf
     - uses: actions/upload-artifact@v2
       with:
         name: HTML
@@ -72,6 +72,9 @@ jobs:
         wc ~/.ssh/id_rsa
         chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+        eval `ssh-agent -s`
+        ssh-add ~/.ssh/id_rsa
+        ssh-add -l
         ssh -vvv -T git@github.com
     - name: Deploy to gdal.org
       if: ${{ github.ref_name == 'deploy-doc-test' }}
