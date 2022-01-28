@@ -63,9 +63,7 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: HTML
-    - name: Deploy
-      env:
-        github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+    - name: Commit new version
       shell: bash -l {0}
       run: |
         cd /__w/gdal/gdal
@@ -77,5 +75,8 @@ jobs:
         touch .nojekyll
         git add -A
         git commit -m "Update with commit $GITHUB_SHA"
-        git push -f origin main
-
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        repository: cmarmo/docs-test
