@@ -66,8 +66,6 @@ jobs:
     - name: Deploy ssh key
       shell: bash -l {0}
       run: |
-        set -x
-        set -e
         mkdir ~/.ssh && echo "${{ secrets.SSH_KEY_DOCS }}" > ~/.ssh/id_rsa
         wc ~/.ssh/id_rsa
         chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
@@ -86,4 +84,4 @@ jobs:
         touch .nojekyll
         git add -A
         git commit -m "Update with commit $GITHUB_SHA"
-        push -f origin main
+        git push -f origin main
