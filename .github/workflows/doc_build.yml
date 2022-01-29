@@ -52,10 +52,10 @@ jobs:
     #  with:
     #    name: PDF
     #    path: doc/build/latex/gdal.pdf
-    - uses: actions/upload-artifact@v2
-      with:
-        name: HTML
-        path: doc/build/html/*
+    #- uses: actions/upload-artifact@v2
+    #  with:
+    #    name: HTML
+    #    path: doc/build/html/*
     #- uses: actions/upload-artifact@v2
     #  with:
     #    name: Misspelled
@@ -79,7 +79,7 @@ jobs:
         set -e
         mkdir /__w/html
         cd /__w/html
-        cp -r /__w/gdal/gdal/build/html/* .
+        cp -r /__w/gdal/gdal/doc/build/html/* .
         git init
         git config user.email "marmochiaskl@gmail.com"
         git config user.name "cmarmo"
