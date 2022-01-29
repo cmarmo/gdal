@@ -60,10 +60,6 @@ jobs:
     #  with:
     #    name: Misspelled
     #    path: doc/build/spelling/output.txt
-    - uses: actions/download-artifact@v2
-      if: ${{ github.ref_name == 'deploy-doc-test' }}
-      with:
-        name: HTML
     - name: Deploy ssh key
       if: ${{ github.ref_name == 'deploy-doc-test' }}
       shell: bash -l {0}
@@ -81,7 +77,9 @@ jobs:
       run: |
         set -x
         set -e
-        cd /__w/gdal/gdal
+        mkdir /__w/html
+        cd /__w/html
+        cp -r /__w/gdal/gdal/build/html/* .
         git init
         git config user.email "marmochiaskl@gmail.com"
         git config user.name "cmarmo"
